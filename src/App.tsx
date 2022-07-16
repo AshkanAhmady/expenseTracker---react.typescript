@@ -1,9 +1,7 @@
 import "./App.css";
 import ExpenceApp from "./Components/ExpenseApp";
 
-function App() {
-  console.log("hello");
-
+const App: React.FC = () => {
   return (
     <div className="App">
       <header>

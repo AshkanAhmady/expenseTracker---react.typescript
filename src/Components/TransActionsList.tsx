@@ -1,29 +1,30 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import {TransActionsListProps } from "../Interfaces";
 
-const TransActionsList = (props) => {
+const TransActionsList: React.FC<TransActionsListProps> = ({transactions}) => {
   const [searched, setSearched] = useState("");
   const [filteredTransactions, setFilteredTransactions] = useState(
-    props.transactions
+    transactions
   );
 
-  const changeHandler = (e) => {
-    setSearched(e.target.value);
-    filterHandler(e.target.value);
+  const changeHandler = (e: React.FormEvent<HTMLInputElement>) => {
+    setSearched(e.currentTarget.value);
+    filterHandler(e.currentTarget.value);
   };
 
-  // when props.transactions updated, filterHandler should be run
+  // when transactions updated, filterHandler should be run
   useEffect(() => {
     filterHandler(searched);
-  }, [props.transactions]);
+  }, [transactions]);
 
-  const filterHandler = (search) => {
+  const filterHandler = (search: string) => {
     if (!search || search === "") {
-      setFilteredTransactions(props.transactions);
+      setFilteredTransactions(transactions);
       return;
     }
-    // this filter should excecute on ((props.transactions))
+    // this filter should excecute on ((transactions))
     // because just with this way the searched list always is up to date
-    let filtered = props.transactions.filter((t) =>
+    let filtered = transactions.filter((t) =>
       t.desc.toLowerCase().includes(search.toLowerCase())
     );
     setFilteredTransactions(filtered);
@@ -31,7 +32,7 @@ const TransActionsList = (props) => {
 
   return (
     <div className="transactionsList">
-      {props.transactions.length > 0 ? (
+      {transactions.length > 0 ? (
         <input
           type="text"
           placeholder="Search For Transaction"
@@ -45,7 +46,6 @@ const TransActionsList = (props) => {
         {filteredTransactions.map((transaction) => {
           return (
             <div
-              style={{ border_color: "green" }}
               className={`transactionItem ${
                 transaction.type === "expense" && "redborder"
               }`}
