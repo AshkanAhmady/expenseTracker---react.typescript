@@ -1,8 +1,11 @@
 import { useState } from "react";
+import { OverViewComponentProps } from "../Interfaces";
 import TransActionForm from "./TransActionForm";
 
-const OverViewComponent = ({ expense, income, addTransaction }) => {
-  const [isShow, setIsShow] = useState(false);
+const OverViewComponent: React.FC<OverViewComponentProps> = ({ expense, income, addTransaction }) => {
+  const [isShow, setIsShow] = useState<boolean>(false);
+
+  const showHideFormHandler = (value: boolean) => setIsShow(value)
 
   return (
     <>
@@ -17,7 +20,7 @@ const OverViewComponent = ({ expense, income, addTransaction }) => {
       </div>
       {isShow && (
         <TransActionForm
-          setIsShow={setIsShow}
+          showHideFormHandler={showHideFormHandler}
           addTransaction={addTransaction}
         />
       )}

@@ -1,7 +1,7 @@
 import "./App.css";
 import ExpenceApp from "./Components/ExpenseApp";
 
-function App() {
+const App: React.FC = () => {
   return (
     <div className="App">
       <header>

@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 import OverViewComponent from "./OverViewComponent";
 import TransActionsList from "./TransActionsList";
+import {Transaction} from "../Interfaces"
 
 const ExpenseApp = () => {
   const [expense, setExpense] = useState(0);
   const [income, setIncome] = useState(0);
-  const [transactions, setTransactions] = useState([]);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
 
-  const addTransaction = (formValue) => {
+  const addTransaction = (formValue: Transaction) => {
     setTransactions([...transactions, { ...formValue, id: Date.now() }]);
+    console.log(formValue);
   };
 
   // when transactions updated, we should upadte (income & expense)
@@ -18,11 +20,11 @@ const ExpenseApp = () => {
     let inc = 0;
     transactions.forEach((t) => {
       t.type === "expense"
-        ? // parseFloat => convert string to number
+        ? // + => convert string to number
           // general expense
-          (exp += parseFloat(t.amount))
+          (exp += +t.amount)
         : // general income
-          (inc += parseFloat(t.amount));
+          (inc += +t.amount);
     });
     setExpense(exp);
     setIncome(inc);

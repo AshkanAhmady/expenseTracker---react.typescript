@@ -1,6 +1,7 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { TransActionFormProps } from "../Interfaces";
 
-const TransActionForm = ({ addTransaction, setIsShow }) => {
+const TransActionForm: React.FC<TransActionFormProps> = ({ addTransaction, showHideFormHandler }) => {
   // const [description, setDescription] = useState("");
   // const [amount, setAmount] = useState(0);
   // const [type, setType] = useState("");
@@ -11,15 +12,15 @@ const TransActionForm = ({ addTransaction, setIsShow }) => {
     desc: "",
   });
 
-  const changeHandler = (e) => {
-    setFormValues({ ...formValues, [e.target.name]: e.target.value });
+  const changeHandler = (e: React.FormEvent<HTMLInputElement>) => {
+    setFormValues({ ...formValues, [e.currentTarget.name]: e.currentTarget.value });
   };
 
-  const submitHandler = (e) => {
+  const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
     addTransaction(formValues);
     // close the form
-    setIsShow(false);
+    showHideFormHandler(false);
   };
 
   return (
